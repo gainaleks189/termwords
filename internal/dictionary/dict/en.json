@@ -1,12 +1,152 @@
 [
-  { "id": 1, "prompt": "успех", "answer": "success" },
-  { "id": 2, "prompt": "ждать", "answer": "wait" },
-  { "id": 3, "prompt": "задача", "answer": "task" },
-  { "id": 4, "prompt": "путь", "answer": "path" },
-  { "id": 5, "prompt": "жизнь", "answer": "life" },
-  { "id": 6, "prompt": "время", "answer": "time" },
-  { "id": 7, "prompt": "работа", "answer": "work" },
-  { "id": 8, "prompt": "анализ", "answer": "analysis" },
-  { "id": 9, "prompt": "данные", "answer": "data" },
-  { "id": 10, "prompt": "система", "answer": "system" }
+  {
+    "id": 1,
+    "prompt": "успех",
+    "answer": "success"
+  },
+  {
+    "id": 2,
+    "prompt": "ждать",
+    "answer": "wait"
+  },
+  {
+    "id": 3,
+    "prompt": "задача",
+    "answer": "task"
+  },
+  {
+    "id": 4,
+    "prompt": "путь",
+    "answer": "path"
+  },
+  {
+    "id": 5,
+    "prompt": "жизнь",
+    "answer": "life"
+  },
+  {
+    "id": 6,
+    "prompt": "время",
+    "answer": "time"
+  },
+  {
+    "id": 7,
+    "prompt": "работа",
+    "answer": "work"
+  },
+  {
+    "id": 8,
+    "prompt": "анализ",
+    "answer": "analysis"
+  },
+  {
+    "id": 9,
+    "prompt": "данные",
+    "answer": "data"
+  },
+  {
+    "id": 10,
+    "prompt": "система",
+    "answer": "system"
+  },
+  {
+    "id": 11,
+    "prompt": "решение",
+    "answer": "solution"
+  },
+  {
+    "id": 12,
+    "prompt": "цель",
+    "answer": "goal"
+  },
+  {
+    "id": 13,
+    "prompt": "результат",
+    "answer": "result"
+  },
+  {
+    "id": 14,
+    "prompt": "развитие",
+    "answer": "development"
+  },
+  {
+    "id": 15,
+    "prompt": "опыт",
+    "answer": "experience"
+  },
+  {
+    "id": 16,
+    "prompt": "знание",
+    "answer": "knowledge"
+  },
+  {
+    "id": 17,
+    "prompt": "ошибка",
+    "answer": "error"
+  },
+  {
+    "id": 18,
+    "prompt": "память",
+    "answer": "memory"
+  },
+  {
+    "id": 19,
+    "prompt": "скорость",
+    "answer": "speed"
+  },
+  {
+    "id": 20,
+    "prompt": "качество",
+    "answer": "quality"
+  },
+  {
+    "id": 21,
+    "prompt": "контроль",
+    "answer": "control"
+  },
+  {
+    "id": 22,
+    "prompt": "структура",
+    "answer": "structure"
+  },
+  {
+    "id": 23,
+    "prompt": "данные",
+    "answer": "information"
+  },
+  {
+    "id": 24,
+    "prompt": "код",
+    "answer": "code"
+  },
+  {
+    "id": 25,
+    "prompt": "проект",
+    "answer": "project"
+  },
+  {
+    "id": 26,
+    "prompt": "команда",
+    "answer": "team"
+  },
+  {
+    "id": 27,
+    "prompt": "управление",
+    "answer": "management"
+  },
+  {
+    "id": 28,
+    "prompt": "модель",
+    "answer": "model"
+  },
+  {
+    "id": 29,
+    "prompt": "сеть",
+    "answer": "network"
+  },
+  {
+    "id": 30,
+    "prompt": "производительность",
+    "answer": "performance"
+  }
 ]

@@ -110,9 +110,10 @@ func main() {
 	}
 
 	model := tui.New(words, start, end, lang, p.DailyNewWords)
+	// Alt Screen: own buffer, draw from top, exit restores previous terminal state.
 	program := tea.NewProgram(model, tea.WithAltScreen(), tea.WithMouseCellMotion())
 	final, err := program.Run()
-	fmt.Print("\033[6 q")
+	fmt.Print("\033[6 q") // restore cursor shape (Bubble Tea exits alt screen automatically)
 	if err != nil {
 		log.Fatal(err)
 	}

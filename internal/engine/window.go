@@ -5,21 +5,20 @@ func CalculateWindow(currentIndex int, dailyNewWords int, totalWords int) (start
 		return 0, -1
 	}
 
-	windowSize := dailyNewWords * 10
+	// Minimum words in session so we don't quit after just a few (e.g. 3).
+	minWindowWords := dailyNewWords * 2
+	if minWindowWords < 10 {
+		minWindowWords = 10
+	}
 
 	end = currentIndex
+	if end < minWindowWords-1 {
+		end = minWindowWords - 1
+	}
 	if end >= totalWords {
 		end = totalWords - 1
 	}
 
-	start = end - windowSize + 1
-	if start < 0 {
-		start = 0
-	}
-	// Всегда начинать окно с первого слова
-	if start > 0 {
-		start = 0
-	}
-
+	start = 0
 	return start, end
 }
