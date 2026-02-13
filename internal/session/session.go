@@ -9,7 +9,7 @@ import (
 	"github.com/gainaleks189/termwords/internal/dictionary"
 )
 
-func Run(words []dictionary.Word, start int, end int) {
+func Run(words []dictionary.Word, start, end int, inputStartRow int, inputCol int) {
 	if len(words) == 0 {
 		fmt.Println("No words available.")
 		return
@@ -22,19 +22,19 @@ func Run(words []dictionary.Word, start int, end int) {
 	reader := bufio.NewReader(os.Stdin)
 
 	for i := start; i <= end; i++ {
-		word := words[i]
+	word := words[i]
+	row := inputStartRow + (i - start)  // строка таблицы для этого слова
 
-		for {
-			fmt.Printf("[%d] %s: ", word.ID, word.Prompt)
+	// Курсор в правую колонку таблицы, напротив слова
+	fmt.Printf("\033[%d;%dH", row, inputCol)
 
-			input, _ := reader.ReadString('\n')
-			input = strings.TrimSpace(input)
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimSpace(input)
 
-			if input == word.Answer {
-				break
-			}
-
-			fmt.Printf("Wrong. Correct: %s\n", word.Answer)
-		}
+	if input != word.Answer {
+		// сообщение об ошибке (например, внизу экрана или рядом)
+		fmt.Printf("\033[%d;%dHWrong. Correct: %s", row, inputCol, word.Answer)
+		// и повторить ввод для этого слова
 	}
+}
 }

@@ -10,6 +10,7 @@ import (
 	"github.com/gainaleks189/termwords/internal/engine"
 	"github.com/gainaleks189/termwords/internal/progress"
 	"github.com/gainaleks189/termwords/internal/session"
+	"github.com/gainaleks189/termwords/internal/ui"
 )
 
 func main() {
@@ -35,6 +36,7 @@ func main() {
 		fmt.Println("Run without arguments to start session.")
 		return
 	}
+
 	// RESET
 	if len(args) >= 2 && args[1] == "reset" {
 		p.Languages[p.CurrentLanguage] = progress.LanguageProgress{
@@ -53,7 +55,6 @@ func main() {
 	if len(args) >= 3 && args[1] == "use" {
 		lang := args[2]
 
-		// Проверяем существование словаря
 		_, err := dictionary.Load(lang)
 		if err != nil {
 			log.Fatalf("Language '%s' not found.", lang)
@@ -86,11 +87,14 @@ func main() {
 		current := p.Languages[p.CurrentLanguage].CurrentIndex
 		start, end := engine.CalculateWindow(current, p.DailyNewWords, len(words))
 
-		fmt.Println("Status:")
-		fmt.Println("Language:", p.CurrentLanguage)
-		fmt.Println("Daily new words:", p.DailyNewWords)
-		fmt.Println("Current index:", current)
-		fmt.Printf("Active window: %d - %d\n", start, end)
+		ui.RenderWindow(
+			words,
+			start,
+			end,
+			p.CurrentLanguage,
+			p.DailyNewWords,
+			current,
+		)
 
 		return
 	}
@@ -128,12 +132,14 @@ func main() {
 	// 3️⃣ Calculate window
 	start, end := engine.CalculateWindow(current, p.DailyNewWords, len(words))
 
-	fmt.Printf("Active window: %d - %d\n", start, end)
+	// 4️⃣ Render UI
+	inputStartRow, inputCol :=
+	ui.RenderWindow(words, start, end, lang, p.DailyNewWords, current)
 
-	// 4️⃣ Run session
-	session.Run(words, start, end)
+	// 5️⃣ Run session
+	session.Run(words, start, end, inputStartRow, inputCol)
 
-	// 5️⃣ Move index forward
+	// 6️⃣ Move index forward
 	current += p.DailyNewWords
 	if current >= len(words) {
 		current = len(words) - 1

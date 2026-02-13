@@ -16,6 +16,10 @@ func CalculateWindow(currentIndex int, dailyNewWords int, totalWords int) (start
 	if start < 0 {
 		start = 0
 	}
+	// Всегда начинать окно с первого слова
+	if start > 0 {
+		start = 0
+	}
 
 	return start, end
 }
