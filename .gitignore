@@ -1,0 +1,12 @@
+# IDE
+.vscode/
+.idea/
+
+# Binaries
+bin/
+/termwords
+*.exe
+*.out
+
+# Logs
+*.log

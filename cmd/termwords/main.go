@@ -21,6 +21,11 @@ func main() {
 
 	args := os.Args
 
+	if len(args) >= 2 && (args[1] == "version" || args[1] == "--version" || args[1] == "-v") {
+		fmt.Println("termwords", Version)
+		return
+	}
+
 	if len(args) >= 2 && args[1] == "help" {
 		fmt.Println("Termwords CLI")
 		fmt.Println("")
@@ -29,6 +34,7 @@ func main() {
 		fmt.Println("  set <number>  Set daily new words")
 		fmt.Println("  reset         Reset current progress")
 		fmt.Println("  use <lang>    Switch language")
+		fmt.Println("  version      Show version")
 		fmt.Println("")
 		fmt.Println("Run without arguments to start session.")
 		return

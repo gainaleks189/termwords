@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-//go:embed dict/*.json
+//go:embed data/*.json
 var embeddedDicts embed.FS
 
 func Load(language string) ([]Word, error) {
-	filename := fmt.Sprintf("dict/%s.json", language)
+	filename := fmt.Sprintf("data/%s.json", language)
 
 	data, err := embeddedDicts.ReadFile(filename)
 	if err != nil {
