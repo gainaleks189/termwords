@@ -11,19 +11,26 @@ import (
 	"github.com/gainaleks189/termwords/internal/dictionary"
 )
 
+// One Dark — popular palette (VS Code, Atom).
 var (
-	headerStyle = lipgloss.NewStyle().
-			Bold(true)
-	separatorStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("240"))
-	rowStyle = lipgloss.NewStyle()
-	faintStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("240")).
-			Faint(true)
+	numberStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#5c6370"))
+	wordStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#abb2bf"))
+	ghostStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#5c6370"))
 	successStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("76"))
+			Bold(true).
+			Foreground(lipgloss.Color("#98c379"))
+	activeRowStyle = lipgloss.NewStyle().
+			Background(lipgloss.Color("#2c323c"))
+	headerStyle = lipgloss.NewStyle().
+			Bold(true).
+			Foreground(lipgloss.Color("#61afef"))
+	separatorStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#5c6370"))
 	dimStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("240"))
+			Foreground(lipgloss.Color("#5c6370"))
 )
 
 type Model struct {
@@ -49,6 +56,8 @@ func New(words []dictionary.Word, start, end int, language string, daily int) Mo
 	ti.Placeholder = ""
 	ti.CharLimit = 64
 	ti.Width = 40
+	ti.TextStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#abb2bf"))
+	ti.Cursor.Style = lipgloss.NewStyle().Foreground(lipgloss.Color("#abb2bf"))
 	ti.Focus() // set focus on the struct we store; Init() runs on a copy so the program's model would never get focus otherwise
 	return Model{
 		Words:    words,
@@ -63,7 +72,7 @@ func New(words []dictionary.Word, start, end int, language string, daily int) Mo
 }
 
 func (m Model) Init() tea.Cmd {
-	fmt.Print("\033[2 q")
+	fmt.Print("\033[4 q") // steady underline cursor (works in iTerm, Alacritty, Kitty, macOS Terminal, VSCode, Cursor)
 	return tea.Batch(
 		tea.SetWindowTitle("termwords"),
 		m.Input.Focus(),
@@ -141,7 +150,6 @@ func (m Model) View() string {
 		w := m.Words[i]
 		rcount := utf8.RuneCountInString(w.Prompt)
 		padding := maxLen - rcount
-		line := fmt.Sprintf("%03d  %s%s │", i+1, w.Prompt, strings.Repeat(" ", padding))
 		var content string
 		if val, ok := m.Answers[i]; ok {
 			content = successStyle.Render(val)
@@ -149,18 +157,23 @@ func (m Model) View() string {
 			if m.Wrong {
 				typed := m.Input.Value()
 				if typed == "" {
-					content = faintStyle.Render(w.Answer)
+					content = ghostStyle.Render(w.Answer)
 				} else if strings.HasPrefix(w.Answer, typed) {
 					remaining := w.Answer[len(typed):]
-					content = typed + faintStyle.Render(remaining)
+					content = wordStyle.Render(typed) + ghostStyle.Render(remaining)
 				} else {
-					content = typed + faintStyle.Render(w.Answer)
+					content = wordStyle.Render(typed) + ghostStyle.Render(w.Answer)
 				}
 			} else {
 				content = m.Input.View()
 			}
 		}
-		line = rowStyle.Render(line + "  " + content)
+		line := numberStyle.Render(fmt.Sprintf("%03d", i+1)) + "  " +
+			wordStyle.Render(w.Prompt) + strings.Repeat(" ", padding) +
+			separatorStyle.Render(" │") + "  " + content
+		if i == m.Cursor {
+			line = activeRowStyle.Render(line)
+		}
 		lines = append(lines, line)
 	}
 
