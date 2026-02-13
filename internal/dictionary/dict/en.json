@@ -1,0 +1,12 @@
+[
+  { "id": 1, "prompt": "успех", "answer": "success" },
+  { "id": 2, "prompt": "ждать", "answer": "wait" },
+  { "id": 3, "prompt": "задача", "answer": "task" },
+  { "id": 4, "prompt": "путь", "answer": "path" },
+  { "id": 5, "prompt": "жизнь", "answer": "life" },
+  { "id": 6, "prompt": "время", "answer": "time" },
+  { "id": 7, "prompt": "работа", "answer": "work" },
+  { "id": 8, "prompt": "анализ", "answer": "analysis" },
+  { "id": 9, "prompt": "данные", "answer": "data" },
+  { "id": 10, "prompt": "система", "answer": "system" }
+]
