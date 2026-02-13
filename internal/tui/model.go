@@ -146,19 +146,18 @@ func (m Model) View() string {
 		if val, ok := m.Answers[i]; ok {
 			content = successStyle.Render(val)
 		} else if i == m.Cursor {
-			inputView := m.Input.View()
 			if m.Wrong {
 				typed := m.Input.Value()
 				if typed == "" {
-					content = inputView + faintStyle.Render(w.Answer)
+					content = faintStyle.Render(w.Answer)
 				} else if strings.HasPrefix(w.Answer, typed) {
 					remaining := w.Answer[len(typed):]
-					content = inputView + faintStyle.Render(remaining)
+					content = typed + faintStyle.Render(remaining)
 				} else {
-					content = inputView + faintStyle.Render(w.Answer)
+					content = typed + faintStyle.Render(w.Answer)
 				}
 			} else {
-				content = inputView
+				content = m.Input.View()
 			}
 		}
 		line = rowStyle.Render(line + "  " + content)
