@@ -33,6 +33,33 @@ func main() {
 		fmt.Println("Progress reset.")
 		return
 	}
+	// USE LANGUAGE
+if len(args) >= 3 && args[1] == "use" {
+
+	lang := args[2]
+
+	// Проверяем, что словарь существует
+	_, err := dictionary.Load(lang)
+	if err != nil {
+		log.Fatalf("Language '%s' not found.", lang)
+	}
+
+	p.CurrentLanguage = lang
+
+	// Если язык новый — инициализируем индекс
+	if _, exists := p.Languages[lang]; !exists {
+		p.Languages[lang] = progress.LanguageProgress{
+			CurrentIndex: 0,
+		}
+	}
+
+	if err := progress.Save(p); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Language switched to:", lang)
+	return
+}
 	// STATUS
 if len(args) >= 2 && args[1] == "status" {
 
