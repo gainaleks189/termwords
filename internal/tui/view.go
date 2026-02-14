@@ -32,6 +32,10 @@ var (
 )
 
 func (m Model) View() string {
+	if m.Completed {
+		return headerStyle.Render("Session complete.") + "\n\n" +
+			dimStyle.Render("Press any key to exit.")
+	}
 	total := len(m.Words)
 	header := headerStyle.Render(fmt.Sprintf("termwords · %s · %d", m.Language, m.Daily))
 	sep := separatorStyle.Render(strings.Repeat("─", 60))
@@ -68,7 +72,7 @@ func (m Model) View() string {
 	}
 
 	lines = append(lines, sep)
-	lines = append(lines, dimStyle.Render("↑/↓ move  Enter validate  q quit"))
+	lines = append(lines, dimStyle.Render("↑↓ move  Enter validate  q quit"))
 
 	return lipgloss.JoinVertical(lipgloss.Left, lines...)
 }
@@ -85,7 +89,8 @@ func (m Model) renderRowContent(i int, w dictionary.Word) string {
 		if typed == "" {
 			return ghostStyle.Render(w.Answer)
 		}
-		if strings.HasPrefix(w.Answer, typed) {
+		// Guard: avoid panic when typed is longer than answer (extra key, paste, etc.)
+		if len(typed) <= len(w.Answer) && strings.HasPrefix(w.Answer, typed) {
 			remaining := w.Answer[len(typed):]
 			return wordStyle.Render(typed) + ghostStyle.Render(remaining)
 		}

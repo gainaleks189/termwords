@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/gainaleks189/termwords/internal/debug"
 	"github.com/gainaleks189/termwords/internal/dictionary"
 	"github.com/gainaleks189/termwords/internal/engine"
 	"github.com/gainaleks189/termwords/internal/progress"
@@ -14,6 +15,7 @@ import (
 )
 
 func main() {
+	debug.Init()
 	p, err := progress.Load()
 	if err != nil {
 		log.Fatal(err)

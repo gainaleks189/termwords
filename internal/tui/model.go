@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
+	"github.com/gainaleks189/termwords/internal/debug"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/gainaleks189/termwords/internal/dictionary"
@@ -75,10 +76,16 @@ func (m Model) handleEnter() (tea.Model, tea.Cmd) {
 	m.Answers[m.Cursor] = word.Answer
 	m.Wrong = false
 	m.Input.SetValue("")
+	if debug.Log != nil {
+		debug.Log.Println("Increment cursor from:", m.Cursor)
+	}
 	m.Cursor++
+	if debug.Log != nil {
+		debug.Log.Println("Cursor after increment:", m.Cursor)
+	}
 	if m.Cursor > m.End {
 		m.Completed = true
-		return m, tea.Quit
+		return m, nil // show completion screen; quit on key in Update
 	}
 	return m, nil
 }
